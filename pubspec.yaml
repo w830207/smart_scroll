@@ -1,6 +1,6 @@
 name: smart_scroll
-description: "A new Flutter package project."
-version: 0.0.1
+description: Libraries help simplify working with lists
+version: 0.0.2
 homepage: https://github.com/QuangNH0606/smart_scroll
 
 environment:
