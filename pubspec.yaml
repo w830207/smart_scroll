@@ -1,6 +1,6 @@
 name: smart_scroll
-description: Libraries help simplify working with lists
-version: 0.0.2
+description: The library simplifies working with lists, integrates and provides customization for list scrolling, pull refresh, loadMore .
+version: 0.0.3
 homepage: https://github.com/QuangNH0606/smart_scroll
 
 environment:

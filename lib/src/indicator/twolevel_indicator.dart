@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smart_scroll/smart_scroll.dart';
-import 'classic_indicator.dart';
 
 enum TwoLevelDisplayAlignment { fromTop, fromCenter, fromBottom }
 
@@ -85,7 +84,7 @@ class TwoLevelHeader extends StatelessWidget {
       this.decoration,
       this.displayAlignment = TwoLevelDisplayAlignment.fromBottom,
       this.completeDuration = const Duration(milliseconds: 600),
-      this.textStyle = const TextStyle(color: const Color(0xff555555)),
+      this.textStyle = const TextStyle(color: Color(0xff555555)),
       this.releaseText,
       this.refreshingText,
       this.canTwoLevelIcon,
@@ -104,7 +103,6 @@ class TwoLevelHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ClassicHeader(
       refreshStyle: displayAlignment == TwoLevelDisplayAlignment.fromBottom
           ? RefreshStyle.Follow
@@ -135,15 +133,15 @@ class TwoLevelHeader extends StatelessWidget {
         if (displayAlignment == TwoLevelDisplayAlignment.fromBottom) {
           return Container(
             decoration: !isTwoLevel
-                ? (decoration ?? BoxDecoration(color: Colors.redAccent))
+                ? (decoration ?? const BoxDecoration(color: Colors.redAccent))
                 : null,
             height: SmartScroll.ofState(context)!.viewportExtent,
             alignment: isTwoLevel ? null : Alignment.bottomCenter,
             child: isTwoLevel
                 ? twoLevelWidget
                 : Padding(
+                    padding: const EdgeInsets.only(bottom: 15),
                     child: child,
-                    padding: EdgeInsets.only(bottom: 15),
                   ),
           );
         } else {
@@ -152,11 +150,12 @@ class TwoLevelHeader extends StatelessWidget {
                 ? twoLevelWidget
                 : Container(
                     decoration: !isTwoLevel
-                        ? (decoration ?? BoxDecoration(color: Colors.redAccent))
+                        ? (decoration ??
+                            const BoxDecoration(color: Colors.redAccent))
                         : null,
                     alignment: Alignment.bottomCenter,
+                    padding: const EdgeInsets.only(bottom: 15),
                     child: child,
-                    padding: EdgeInsets.only(bottom: 15),
                   ),
           );
         }
