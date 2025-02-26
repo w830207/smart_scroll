@@ -32,7 +32,7 @@ class RefreshPhysics extends ScrollPhysics {
 
   /// Creates scroll physics that bounce back from the edge.
   RefreshPhysics(
-      {ScrollPhysics? parent,
+      {super.parent,
       this.updateFlag,
       this.maxUnderScrollExtent,
       this.springDescription,
@@ -42,8 +42,7 @@ class RefreshPhysics extends ScrollPhysics {
       this.bottomHitBoundary,
       this.enableScrollWhenRefreshCompleted,
       this.enableScrollWhenTwoLevel,
-      this.maxOverScrollExtent})
-      : super(parent: parent);
+      this.maxOverScrollExtent});
 
   @override
   RefreshPhysics applyTo(ScrollPhysics? ancestor) {
@@ -294,6 +293,7 @@ class RefreshPhysics extends ScrollPhysics {
             controller!.headerMode!.value == RefreshStatus.twoLeveling
                 ? 0.0
                 : position.maxScrollExtent,
+        // ignore: deprecated_member_use
         tolerance: tolerance,
       );
     }

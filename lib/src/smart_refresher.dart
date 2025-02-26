@@ -125,6 +125,7 @@ class SmartScroll extends StatefulWidget {
       {super.key,
       required this.controller,
       this.child,
+      this.slivers,
       this.header,
       this.footer,
       this.enablePullDown = true,
@@ -150,6 +151,7 @@ class SmartScroll extends StatefulWidget {
   /// for example,NestedScrollView is a StalessWidget,it's headerSliversbuilder can return a slivers array,So if we want to do
   /// refresh above NestedScrollVIew,we must use this constrctor to implements refresh above NestedScrollView,but for now,NestedScrollView
   /// can not support overscroll out of edge
+  // ignore: use_super_parameters
   const SmartScroll.builder({
     Key? key,
     required this.controller,
@@ -163,6 +165,7 @@ class SmartScroll extends StatefulWidget {
   })  : header = null,
         footer = null,
         child = null,
+        slivers = null,
         scrollController = null,
         scrollDirection = null,
         physics = null,
@@ -178,6 +181,10 @@ class SmartScroll extends StatefulWidget {
   /// notice that: If child is  extends ScrollView,It will help you get the internal slivers and add footer and header in it.
   /// else it will put child into SliverToBoxAdapter and add footer and header
   final Widget? child;
+
+  /// slivers content
+  ///
+  final List<Widget>? slivers;
 
   /// header indicator displace before content
   ///
@@ -398,7 +405,6 @@ class SmartScrollState extends State<SmartScroll> {
         scrollController = scrollController ?? childView.controller;
       }
       body = CustomScrollView(
-        // ignore: DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE
         controller: scrollController,
         cacheExtent: cacheExtent,
         key: key,
@@ -413,7 +419,7 @@ class SmartScrollState extends State<SmartScroll> {
         center: center,
         physics: _getScrollPhysics(
             conf, physics ?? const AlwaysScrollableScrollPhysics()),
-        slivers: slivers!,
+        slivers: [...widget.slivers ?? [], ...slivers!],
         dragStartBehavior: dragStartBehavior ?? DragStartBehavior.start,
         reverse: reverse ?? false,
       );
@@ -563,9 +569,8 @@ class RefreshController {
       {this.initialRefresh = false,
       RefreshStatus? initialRefreshStatus,
       LoadStatus? initialLoadStatus}) {
-    this.headerMode =
-        RefreshNotifier(initialRefreshStatus ?? RefreshStatus.idle);
-    this.footerMode = RefreshNotifier(initialLoadStatus ?? LoadStatus.idle);
+    headerMode = RefreshNotifier(initialRefreshStatus ?? RefreshStatus.idle);
+    footerMode = RefreshNotifier(initialLoadStatus ?? LoadStatus.idle);
   }
   SmartScrollState? _refresherState;
 
@@ -834,7 +839,7 @@ class RefreshController {
 /// * [SmartScroll], a widget help attach the refresh and load more function
 class RefreshConfiguration extends InheritedWidget {
   const RefreshConfiguration(
-      {Key? key,
+      {super.key,
       required this.child,
       this.headerBuilder,
       this.footerBuilder,
@@ -867,13 +872,13 @@ class RefreshConfiguration extends InheritedWidget {
         assert(twiceTriggerDistance > 0),
         assert(closeTwoLevelDistance > 0),
         assert(dragSpeedRatio > 0),
-        super(key: key, child: child);
+        super(child: child);
 
   /// Construct RefreshConfiguration to copy attributes from ancestor nodes
   /// If the parameter is null, it will automatically help you to absorb the attributes of your ancestor Refresh Configuration, instead of having to copy them manually by yourself.
   ///
   RefreshConfiguration.copyAncestor({
-    Key? key,
+    super.key,
     required BuildContext context,
     required this.child,
     IndicatorBuilder? headerBuilder,
@@ -947,7 +952,7 @@ class RefreshConfiguration extends InheritedWidget {
             RefreshConfiguration.of(context)!.enableLoadMoreVibrate,
         shouldFooterFollowWhenNotFull = shouldFooterFollowWhenNotFull ??
             RefreshConfiguration.of(context)!.shouldFooterFollowWhenNotFull,
-        super(key: key, child: child);
+        super(child: child);
   final Widget child;
 
   /// global default header builder

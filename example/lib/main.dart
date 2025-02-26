@@ -49,17 +49,22 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SmartScroll(
-        enablePullDown: true,
-        enablePullUp: true,
-        header: const WaterDropHeader(),
-        controller: _refreshController,
-        onRefresh: _onRefresh,
-        onLoading: _onLoading,
-        child: ListView.builder(
-          itemBuilder: (c, i) => Card(child: Center(child: Text(items[i]))),
-          itemExtent: 100.0,
-          itemCount: items.length,
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: SafeArea(
+        child: SmartScroll(
+          enablePullDown: true,
+          enablePullUp: true,
+          header: const WaterDropHeader(),
+          controller: _refreshController,
+          onRefresh: _onRefresh,
+          onLoading: _onLoading,
+          child: ListView.builder(
+            itemBuilder: (c, i) => Card(child: Center(child: Text(items[i]))),
+            itemExtent: 100.0,
+            itemCount: items.length,
+          ),
         ),
       ),
     );

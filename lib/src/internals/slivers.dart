@@ -10,14 +10,13 @@ import '../smart_refresher.dart';
 ///  Render header sliver widget
 class SliverRefresh extends SingleChildRenderObjectWidget {
   const SliverRefresh({
-    Key? key,
+    super.key,
     this.paintOffsetY,
     this.refreshIndicatorLayoutExtent = 0.0,
     this.floating = false,
-    Widget? child,
+    super.child,
     this.refreshStyle,
-  })  : assert(refreshIndicatorLayoutExtent >= 0.0),
-        super(key: key, child: child);
+  }) : assert(refreshIndicatorLayoutExtent >= 0.0);
 
   /// The amount of space the indicator should occupy in the sliver in a
   /// resting state when in the refreshing mode.
@@ -524,8 +523,8 @@ class SliverRefreshBody extends SingleChildRenderObjectWidget {
 class RenderSliverRefreshBody extends RenderSliverSingleBoxAdapter {
   /// Creates a [RenderSliver] that wraps a [RenderBox].
   RenderSliverRefreshBody({
-    RenderBox? child,
-  }) : super(child: child);
+    super.child,
+  });
 
   @override
   void performLayout() {

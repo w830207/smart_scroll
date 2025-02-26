@@ -15,7 +15,7 @@
 Libraries help simplify working with lists
 
 # Important
-Reuse smart_scroll due to issue related to updating version dart
+Reuse flutter_pulltorefresh by peng8350, due to issue related to updating version dart.
 
 ## Features
 * pull up load and pull down refresh
