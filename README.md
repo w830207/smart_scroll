@@ -33,7 +33,7 @@ add this line to pubspec.yaml
 
    dependencies:
 
-    smart_scroll: ^0.0.2
+    smart_scroll: ^1.0.0
 
 
 ```
